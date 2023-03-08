@@ -1,5 +1,31 @@
+
 const tarjetas = document.getElementById("tarjetas")
 const url = "https://fakestoreapi.com/products"
+
+
+const image = document.getElementById("imagen")
+
+
+function carrusel (){
+    if(indice<imagenes.length){
+        image.src=imagenes[indice]
+        indice++
+    }else
+    {
+        indice=0
+    }
+}
+
+let indice=0
+const imagenes=[
+    './imagenes/image1.jpg',
+    './imagenes/image2.jpg',
+    './imagenes/image3.jpg',
+    './imagenes/image4.jpg'
+]
+
+
+setInterval(carrusel,2000)
 
 let elementos = []
 
@@ -18,7 +44,6 @@ async function traer (){
     </div>`
     });
 }
-
 traer()
 
 addEventListener('click', (event)=>{
@@ -27,12 +52,17 @@ addEventListener('click', (event)=>{
         console.log(event.target)
 
         document.querySelector('#contenido').innerHTML=`<div class="container_tarjetas">
-        <img src="${elementos[1].image}" alt="">
-        <h3>${elementos[1].title}</h3>
-        <p>${elementos[1].description}</p>
-        <span class="container_tarjetas_precio">${elementos[1].price}$</span>
-        <button class="container_tarjetas_boton" id='${elementos[1].id}'>Comprar</button>
+        <img src="${elementos[event.target.id -1].image}" alt="">
+        <h3>${elementos[event.target.id -1].title}</h3>
+        <p>${elementos[event.target.id -1].description}</p>
+        <span class="container_tarjetas_precio">${elementos[event.target.id-1].price}$</span>
+        <button class="container_tarjetas_boton boton_comprar" id='${elementos[event.target.id-1].id}'>Comprar</button>
         </div>`
+    }
+
+    if(event.target.className == 'container_tarjetas_boton boton_comprar'){
+        alert('Compra exitosa')
+        document.getElementById('modal').style.display='none'
     }
 })
 
